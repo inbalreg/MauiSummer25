@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MauiSummer25.Views.UserProfilePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="User Profile">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="18">
+            <Label
+                FontAttributes="Bold"
+                FontSize="28"
+                HorizontalOptions="Center"
+                Text="User Profile" />
+            <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
+                <Image
+                    Margin="0,12"
+                    Aspect="AspectFill"
+                    HeightRequest="60"
+                    HorizontalOptions="Center"
+                    Source="{Binding ProfilePicture}"
+                    WidthRequest="70" />
+                <Label
+                    Margin="30"
+                    FontAttributes="Bold"
+                    HeightRequest="60"
+                    HorizontalOptions="Center"
+                    Text="שנה תמונת פרופיל"
+                    VerticalOptions="Center"
+                    WidthRequest="50" />
+                <VerticalStackLayout>
+                    <Button
+                        Command="{Binding SelectImageCommand}"
+                        HeightRequest="60"
+                        Style="{StaticResource MyButton}"
+                        Text="From File"
+                        WidthRequest="120" />
+                    <Button
+                        Command="{Binding TakeAPictureCommand}"
+                        HeightRequest="60"
+                        Style="{StaticResource MyButton}"
+                        Text="Take a picture"
+                        WidthRequest="120" />
+                </VerticalStackLayout>
+
+                <!--
+                    Entry
+                    HeightRequest="50"
+                    HorizontalOptions="Center"
+                    Placeholder="URL"
+                    Text="{Binding NewPicturePath, Mode=TwoWay}"
+                    WidthRequest="200" /
+                -  ->
+                <Button
+                    BackgroundColor="Purple"
+                    Command="{Binding ChangeProfileCommand}"
+                    HeightRequest="50"
+                    Text="Change picture" /-->
+
+            </HorizontalStackLayout>
+            <Frame
+                Padding="16"
+                BackgroundColor="DeepPink"
+                CornerRadius="12">
+                <VerticalStackLayout Spacing="12">
+                    <HorizontalStackLayout>
+                        <Label FontAttributes="Bold" Text="Name: " />
+                        <Label Text="{Binding Name}" />
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout>
+                        <Label FontAttributes="Bold" Text="Username: " />
+                        <Label Text="{Binding Username}" />
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout>
+                        <Label FontAttributes="Bold" Text="Email: " />
+                        <Label Text="{Binding Email}" />
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout>
+                        <Label FontAttributes="Bold" Text="Phone Number: " />
+                        <Label Text="{Binding PhoneNum}" />
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout>
+                        <Label FontAttributes="Bold" Text="Date of Birth: " />
+                        <Label Text="{Binding BirthDate, StringFormat='{0:yyyy-MM-dd}'}" />
+                    </HorizontalStackLayout>
+                    <!--Label FontAttributes="Bold" Text="Age:" />
+                    <Label Text="{Binding Age}" /-->
+                    <Button
+                        Command="{Binding GetFromContacts}"
+                        HeightRequest="50"
+                        Style="{StaticResource MyButton}"
+                        Text="Update details From Contacts" />
+                </VerticalStackLayout>
+            </Frame>
+            <Button
+                Command="{Binding ChangeProfileCommand}"
+                HeightRequest="50"
+                Style="{StaticResource MyButton}"
+                Text="Update and Save details" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

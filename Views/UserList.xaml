@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MauiSummer25.Views.UserList"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:maui="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:models="clr-namespace:MauiSummer25.Models"
+    xmlns:viewmodels="clr-namespace:MauiSummer25.ViewModels"
+    xmlns:views="clr-namespace:MauiSummer25.Views"
+    Title="UserListPage"
+    x:DataType="viewmodels:UserListPageViewModel">
+    <Grid Margin="15" RowDefinitions=".1*,.9*,auto">
+        <!--  פילטור משימות  -->
+        <Border Stroke="Transparent">
+            <HorizontalStackLayout>
+                <SearchBar
+                    Placeholder="הכנס טקסט לחיפוש"
+                    SearchCommand="{Binding FilterUserCommand}"
+                    SearchCommandParameter="{Binding Source={x:RelativeSource Self}, x:DataType=SearchBar, Path=Text}"
+                    Text="{Binding SearchText, Mode=TwoWay}"
+                    WidthRequest="200" />
+                <Button
+                    Background="Transparent"
+                    Command="{Binding ClearFilterCommand}"
+                    FontFamily="MaterialSymbols"
+                    FontSize="25"
+                    Text="&#xeb32;"
+                    TextColor="BlueViolet" />
+                <Button
+                    Command="{Binding LoadDataCommand}"
+                    HeightRequest="50"
+                    IsVisible="{Binding HasError}"
+                    Text="טען מחדש"
+                    WidthRequest="50" />
+
+            </HorizontalStackLayout>
+        </Border>
+
+        <RefreshView
+            Grid.Row="1"
+            Command="{Binding LoadDataCommand}"
+            IsRefreshing="{Binding IsBusy}">
+            <!--  Task Collection  -->
+            <CollectionView
+                x:Name="taskCollections"
+                ItemsSource="{Binding AllUsers}"
+                SelectedItem="{Binding SelectedUser, Mode=TwoWay}"
+                SelectionChangedCommand="{Binding ShowDetailsPageCommand}"
+                SelectionMode="Single">
+                <!--  SelectionChangedCommand="{Binding UserSelectedCommand}"  -->
+                <CollectionView.Header>
+                    <StackLayout>
+                        <Label FontSize="24" Text="זוהי כותרת עליונה" />
+                    </StackLayout>
+                </CollectionView.Header>
+                <CollectionView.Footer>
+                    <Label Text="כותרת תחתית" />
+                </CollectionView.Footer>
+
+
+                <!--  מה עושים כשאין נתונים  -->
+                <CollectionView.EmptyView>
+                    <StackLayout
+                        Padding="20"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                        <Label
+                            HorizontalTextAlignment="Center"
+                            Text="לא נמצאו משתמשים."
+                            TextColor="Gray" />
+                        <Label
+                            HorizontalTextAlignment="Center"
+                            Text="גרור כלפי מטה לרענון."
+                            TextColor="Gray" />
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:ObservableUser">
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <!--
+                                    BindingContext.DeleteUserCommand, Source={x:Reference taskCollections}}"
+                                    {Binding BindingContext.DeleteTaskCommand, Source={x:Reference taskCollections}}"
+                                    Source={x:RelativeSource AncestorType={x:Type viewmodels:UserListPageViewModel}}, x:DataType='viewmodels:UserListPageViewModel'}
+                                    &#xe872;
+                                -->
+                                <SwipeItem
+                                    Command="{Binding BindingContext.DeleteUserCommand, Source={x:Reference taskCollections}}"
+                                    CommandParameter="{Binding .}"
+                                    Text="מחיקה">
+                                    <SwipeItem.IconImageSource>
+                                        <FontImageSource Glyph="&#xeb42;">
+                                            <FontImageSource.FontFamily>MaterialSymbols</FontImageSource.FontFamily>
+
+                                        </FontImageSource>
+                                    </SwipeItem.IconImageSource>
+                                </SwipeItem>
+                                <SwipeItem
+                                    Command="{Binding Path=ShowDetailsPageCommand, Source={x:Reference taskCollections}}"
+                                    CommandParameter="{Binding .}"
+                                    Text="צפייה">
+                                    <SwipeItem.IconImageSource>
+                                        <FontImageSource FontFamily="MaterialSymbols" Glyph="&#xe872;" />
+                                    </SwipeItem.IconImageSource>
+
+                                </SwipeItem>
+                            </SwipeView.RightItems>
+
+                            <Border
+                                Margin="15,7"
+                                Padding="15"
+                                BackgroundColor="White"
+                                Stroke="LightGray"
+                                StrokeShape="RoundRectangle 10">
+
+                                <Grid
+                                    ColumnDefinitions="*, *, Auto"
+                                    RowDefinitions="Auto, Auto"
+                                    RowSpacing="5">
+                                    <!--  Task Description  -->
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        FontAttributes="Bold"
+                                        FontSize="16"
+                                        Text="{Binding Name}"
+                                        VerticalOptions="Center" />
+                                    <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        FontAttributes="Bold"
+                                        FontSize="16"
+                                        Text="{Binding Username}"
+                                        VerticalOptions="Center" />
+                                    <!--  Due Date  -->
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        FontSize="13"
+                                        Text="{Binding BirthDate, StringFormat=' תאריך לידה {0:dd/MM/yy}'}"
+                                        TextColor="Gray"
+                                        VerticalOptions="Center" />
+                                    <!--  Urgency Level as a Chip  -->
+                                    <Border
+                                        Grid.RowSpan="2"
+                                        Grid.Column="2"
+                                        Padding="10,5"
+                                        BackgroundColor="LightGray"
+                                        StrokeShape="RoundRectangle 15"
+                                        VerticalOptions="Center">
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="12"
+                                            Text="{Binding Email}"
+                                            VerticalOptions="Center" />
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+</ContentPage>

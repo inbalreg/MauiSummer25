@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MauiSummer25.Views.AddUserPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:MauiSummer25.ViewModels"
+    Title="AddUserPage"
+    x:DataType="viewmodels:AddUserPageViewModel">
+
+
+    <VerticalStackLayout>
+        <Label
+            HorizontalOptions="Center"
+            Text="הוספת משתמש חדש"
+            VerticalOptions="Center" />
+
+        <Label FontSize="30" Text="Name:" />
+        <Entry Placeholder="Enter username" Text="{Binding Username}" />
+
+        <Label Text="Username:" />
+        <Entry Placeholder="Enter username" Text="{Binding Username}" />
+
+        <Label Text="Password:" />
+        <Entry
+            IsPassword="True"
+            Placeholder="Enter password"
+            Text="{Binding Password}" />
+
+
+        <Label Text="Email:" />
+        <Entry
+            Keyboard="Email"
+            Placeholder="Enter email"
+            Text="{Binding Email}" />
+
+        <Label Text="Phone Number:" />
+        <Entry Placeholder="Enter username" Text="{Binding Phone}" />
+
+        <Button Command="{Binding AddUserCommand}" Text="הוסף" />
+    </VerticalStackLayout>
+</ContentPage>

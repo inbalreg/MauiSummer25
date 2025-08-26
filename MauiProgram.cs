@@ -1,0 +1,103 @@
+﻿using MauiSummer25.Service;
+using MauiSummer25.ViewModels;
+using Microsoft.Extensions.Logging;
+using CommunityToolkit.Maui;
+//using Camera.MAUI;
+
+namespace MauiSummer25
+{
+    public static class MauiProgram
+    {
+        public static MauiApp CreateMauiApp()
+        {
+            var builder = MauiApp.CreateBuilder();
+            builder
+                .UseMauiApp<App>()
+                .UseMauiCommunityToolkitCamera() // Add the use of the core toolkit
+                .UseMauiCommunityToolkit() // Add the use of the general toolkit
+             //   .UseMauiCameraView() // Add the use of the plugging
+                //.UseMauiCommunityToolkit()          // general toolkit
+                //.UseMauiCommunityToolkitCamera()   // camera toolkit
+                .ConfigureFonts(fonts =>
+                {
+                    fonts.AddFont("MaterialSymbolsOutlined.ttf", "MaterialSymbols");
+
+                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                })
+               ;
+
+
+            ;
+
+            // builder.Services.AddSingleton<Views.LoginPage>();
+            // builder.Services.AddTransient<ViewModels.LoginPageViewModel>();
+
+            // builder.Services.AddSingleton<Views.RegistrationPage>();
+            // builder.Services.AddTransient<ViewModels.RegistrationPageViewModel>();
+
+
+            // builder.Services.AddSingleton<Views.UserList>();
+            // builder.Services.AddTransient<ViewModels.UserListPageViewModel>();
+
+            // builder.Services.AddSingleton<Views.AddUserPage>();
+            // builder.Services.AddTransient<ViewModels.AddUserPageViewModel>();
+
+            // builder.Services.AddSingleton<Views.UserProfilePage>();
+            //// builder.Services.AddTransient<ViewModels.UserPro>();
+
+
+
+            // builder.Services.AddSingleton<IUserServices, DBMokup>();
+
+            #region הזרקת דפים
+            builder.AddPages().AddViewModels().AddServices();
+            #endregion
+
+
+#if DEBUG
+            builder.Logging.AddDebug();
+#endif
+
+            return builder.Build();
+        }
+
+        
+	#region load Pages
+	public static MauiAppBuilder AddPages(this MauiAppBuilder builder)
+        {
+            builder.Services.AddSingleton<Views.LoginPage>();
+            builder.Services.AddSingleton<Views.RegistrationPage>();
+            builder.Services.AddSingleton<Views.UserList>();
+            //builder.Services.AddSingleton<Views.AddUserPage>();
+            builder.Services.AddSingleton<Views.UserProfilePage>();
+       
+            builder.Services.AddSingleton<AppShell>();
+
+
+            return builder;
+        }
+        #endregion
+        #region load ViewModels
+        public static MauiAppBuilder AddViewModels(this MauiAppBuilder builder)
+        {
+            builder.Services.AddTransient<ViewModels.LoginPageViewModel>();
+            builder.Services.AddTransient<ViewModels.RegistrationPageViewModel>();
+            builder.Services.AddTransient<ViewModels.UserListPageViewModel>();
+            builder.Services.AddTransient<ViewModels.UserProfilePageViewModel>();
+            builder.Services.AddSingleton<AppShellViewModel>();
+
+            return builder;
+        }
+        #endregion
+
+        #region load Services
+        public static MauiAppBuilder AddServices(this MauiAppBuilder builder)
+        {
+            builder.Services.AddSingleton<IUserServices, DBMokup>();
+
+            return builder;
+        }
+        #endregion
+    }
+}

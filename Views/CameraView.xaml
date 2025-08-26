@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MauiSummer25.Views.CameraView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:toolkitCamera="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui.Camera"
+    xmlns:toolkitCamera1="clr-namespace:MauiSummer25.Views"
+    Title="CameraView">
+    <!--
+        xmlns:cv="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
+        xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+        xmlns:toolkitCamera="http://schemas.microsoft.com/dotnet/2022/maui/toolkit/camera" xmlns:toolkitCamera1="clr-namespace:MauiSummer25.Views"
+        xmlns:toolkitCamera="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui.Camera"
+    -->
+    <Grid>
+        <!--
+            cv:CameraView
+            x:Name="cameraView"
+            HeightRequest="200"
+            WidthRequest="300" /
+        -->
+        <toolkitCamera:CameraView
+            x:Name="cameraView"
+            CameraFlashMode="Off"
+            MediaCaptured="cameraView_MediaCaptured"
+            ZoomFactor="1.0" />
+        <!--  Add controls for capture, flash, camera switching, etc.  -->
+        <!--
+            Button
+            Clicked="CaptureButton_Clicked"
+            HorizontalOptions="Center"
+            Text="Capture"
+            VerticalOptions="End" /
+        -->
+    </Grid>
+</ContentPage>
