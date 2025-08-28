@@ -18,7 +18,7 @@
             <GradientStop Offset="1.0" Color="Purple" />
         </LinearGradientBrush>
     </ContentPage.Background>
-    <!--ContentPage.Background Style="{StaticResource PrimaryContentBackground}" /-->
+    <!--  ContentPage.Background Style="{StaticResource PrimaryContentBackground}" /  -->
 
 
     <VerticalStackLayout
@@ -44,7 +44,7 @@
                 FontSize="18"
                 Placeholder="שם משתמש"
                 Text="{Binding UserName}"
-                TextColor="Wheat" />
+                TextColor="Black" />
         </Border>
 
         <!--  סיסמה עם כפתור צפייה  -->
@@ -62,7 +62,7 @@
                     IsPassword="{Binding IsPassword}"
                     Placeholder="סיסמה"
                     Text="{Binding Password}"
-                    TextColor="Wheat"
+                    TextColor="Black"
                     VerticalOptions="Center" />
                 <Button
                     Margin="5,0,0,0"
