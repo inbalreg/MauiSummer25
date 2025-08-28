@@ -1,10 +1,11 @@
-﻿using MauiSummer25.Service;
-using MauiSummer25.ViewModels;
-using Microsoft.Extensions.Logging;
-using CommunityToolkit.Maui;
+﻿using CommunityToolkit.Maui;
 //using Camera.MAUI;
 using MauiSummer25.DB;
+using MauiSummer25.Service;
+using MauiSummer25.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using SQLite;
 
 namespace MauiSummer25
 {
@@ -30,8 +31,23 @@ namespace MauiSummer25
                 .AddDB()
                ;
 
+            // 1️⃣ Build the path to your DB file
+            string dbPath = Path.Combine(FileSystem.AppDataDirectory, "Ex4.db");
 
-            ;
+            // 2️⃣ Create the SQLite connection manually
+            var sqliteConn = new SQLiteAsyncConnection(dbPath);
+
+            // 3️⃣ Register the connection as a singleton
+            builder.Services.AddSingleton(sqliteConn); ;
+
+            //string dbPath = Path.Combine(FileSystem.AppDataDirectory, "Ex4.db");
+            ////initDb();
+            
+            ////_db = new SQLiteAsyncConnection(dbPath);
+            //var connection = new SQLiteAsyncConnection(dbPath);
+
+            //// register connection & viewmodels
+            //builder.Services.AddSingleton(connection);
 
             // builder.Services.AddSingleton<Views.LoginPage>();
             // builder.Services.AddTransient<ViewModels.LoginPageViewModel>();
@@ -97,7 +113,6 @@ namespace MauiSummer25
             builder.Services.AddTransient<ViewModels.RegistrationPageViewModel>();
             builder.Services.AddTransient<ViewModels.UserListPageViewModel>();
             builder.Services.AddTransient<ViewModels.UserProfilePageViewModel>();
-
             builder.Services.AddTransient<ViewModels.CoursesPageViewModel>();
             builder.Services.AddSingleton<AppShellViewModel>();
 
@@ -110,6 +125,9 @@ namespace MauiSummer25
         {
            // builder.Services.AddSingleton<IUserServices, DBMokup>();
             builder.Services.AddSingleton<IUserServices, ApiService>();
+
+            builder.Services.AddSingleton<DatabaseHelper>();
+            builder.Services.AddSingleton<SQLite.SQLiteAsyncConnection>();
 
             return builder;
         }

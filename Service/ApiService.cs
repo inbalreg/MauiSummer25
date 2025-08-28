@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MauiSummer25.Models;
 using MauiSummer25.Service;
 using MauiSummer25.DB;
+using SQLite;
 
 namespace MauiSummer25.Service
     {

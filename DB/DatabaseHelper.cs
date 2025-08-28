@@ -17,12 +17,17 @@ namespace MauiSummer25.DB
         //dbPath = "C:\\Users\\teach\\source\\repos\\MauiSummer25\\DB\\Ex4.db";
         string dbPath = "";
 
-        public DatabaseHelper()
+        public DatabaseHelper()//SQLiteAsyncConnection conn )
     {
+           // 
             dbPath = Path.Combine(FileSystem.AppDataDirectory, dbName);
             initDb();
+            SQLiteAsyncConnection connection = new SQLiteAsyncConnection(dbPath);
+            _db = connection;
 
-            _db = new SQLiteAsyncConnection(dbPath);
+
+
+            //_db = new SQLiteAsyncConnection(dbPath);
 
             //dbPath = Path.Combine(FileSystem.AppDataDirectory, "Ex4.db");
             //_db = new SQLiteAsyncConnection(dbPath);

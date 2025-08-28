@@ -64,11 +64,14 @@
             Icon="view.png"
             Route="UserProfilePage" />
     </Tab>
-    <Tab Title="קורסים" Icon="profile.png">
+    <!--Tab Title="קורסים" Icon="profile.png">
         <ShellContent
             Title="הקורסים שלי"
             ContentTemplate="{DataTemplate local:CoursesPage}"
             Icon="view.png"
             Route="CoursesPage" />
-    </Tab>
+
+    SHOULD RETURN THIS TAB!!
+
+    </Tab-->
 </Shell>
