@@ -31,7 +31,7 @@ public class UserListPageViewModel : ViewModelBase
         //_basicUsersList = new();
         //LoadUsersCommand = new Command(async () => await LoadUserAsync());
         FilterUserCommand = new Command<string>(async (query) => await FilterUsers(query));
-        ClearFilterCommand = new Command(async () => await FilterUsers(string.Empty), () => string.IsNullOrEmpty(SearchText) && !IsLoading);
+        ClearFilterCommand = new Command(async () => await FilterUsers(string.Empty), () => !string.IsNullOrEmpty(SearchText) && !IsLoading);
                                                                                                                                  // ChangeTaskDescriptionCommand = new Command(() => { if (_basicUsersList.Count > 0) { Tasks[0].TaskDescription = "וואחד שינוי"; } });
         DeleteUserCommand = new Command<ObservableUser>(DeleteUser);
         //SearchCommand = new Command<string>(FilterUsers);    //OnSearch);
@@ -57,7 +57,8 @@ public class UserListPageViewModel : ViewModelBase
 
     private async Task ShowDetails()
     {
-        throw new NotImplementedException();
+
+        //throw new NotImplementedException();
     }
 
     //{
@@ -168,6 +169,8 @@ public class UserListPageViewModel : ViewModelBase
     {
         if (user == null) return; // Ensure task is not null
         _allUsersObserve.Remove(user);
+        _service.deleteUserByUsername(user.Username);
+        OnPropertyChanged(nameof(AllUsers));
     }
 
 

@@ -14,9 +14,9 @@
         </Setter>
     </Style-->
     <LinearGradientBrush x:Key="backgroundBrush" StartPoint="0,0" EndPoint="1,1">
-        <GradientStop Offset="0.0" Color="LightCyan" />
+        <GradientStop Offset="0.0" Color="LightGrey" />
         <GradientStop Offset="0.5" Color="#3a7bd5" />
-        <GradientStop Offset="1.0" Color="Purple" />
+        <GradientStop Offset="1.0" Color="MediumPurple" />
     </LinearGradientBrush>
 
     <Style ApplyToDerivedTypes="True" TargetType="ContentPage">
@@ -50,7 +50,7 @@
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource PrimaryDarkText}}" />
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
         <Setter Property="FontFamily" Value="OpenSansRegular" />
-        <Setter Property="FontSize" Value="7" />
+        <Setter Property="FontSize" Value="25" />
         <Setter Property="BorderWidth" Value="0" />
         <Setter Property="CornerRadius" Value="20" />
         <Setter Property="Padding" Value="14,10" />

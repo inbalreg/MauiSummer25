@@ -9,6 +9,14 @@
     xmlns:views="clr-namespace:MauiSummer25.Views"
     Title="UserListPage"
     x:DataType="viewmodels:UserListPageViewModel">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Command="{Binding DeleteUserCommand}"
+            CommandParameter="{Binding SelectedUser}"
+            IconImageSource="delete.png"
+            Text="מחק משתמש" />
+    </ContentPage.ToolbarItems>
+
     <Grid Margin="15" RowDefinitions=".1*,.9*,auto">
         <!--  פילטור משימות  -->
         <Border Stroke="Transparent">
@@ -47,6 +55,7 @@
                 SelectedItem="{Binding SelectedUser, Mode=TwoWay}"
                 SelectionChangedCommand="{Binding ShowDetailsPageCommand}"
                 SelectionMode="Single">
+
                 <!--  SelectionChangedCommand="{Binding UserSelectedCommand}"  -->
                 <CollectionView.Header>
                     <StackLayout>
@@ -114,7 +123,7 @@
                                 StrokeShape="RoundRectangle 10">
 
                                 <Grid
-                                    ColumnDefinitions="*, *, Auto"
+                                    ColumnDefinitions="*, *, Auto, Auto"
                                     RowDefinitions="Auto, Auto"
                                     RowSpacing="5">
                                     <!--  Task Description  -->
@@ -154,6 +163,14 @@
                                             Text="{Binding Email}"
                                             VerticalOptions="Center" />
                                     </Border>
+                                    <Button
+                                        Grid.RowSpan="1"
+                                        Grid.Column="4"
+                                        BackgroundColor="Transparent"
+                                        Command="{Binding BindingContext.DeleteUserCommand, Source={x:Reference taskCollections}}"
+                                        CommandParameter="{Binding .}"
+                                        Text="מחק"
+                                        TextColor="Red" />
                                 </Grid>
                             </Border>
                         </SwipeView>
@@ -163,5 +180,6 @@
 
             </CollectionView>
         </RefreshView>
+
     </Grid>
 </ContentPage>

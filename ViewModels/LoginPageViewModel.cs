@@ -223,13 +223,13 @@ namespace MauiSummer25.ViewModels
 			MessageIsVisible = true; // מציג את אזור הודעת המשוב
 
 			// קורא לשירות ההתחברות עם הפרטים שהוזנו
-			if (db.Login(UserName!, Password!))
+			if (await db.Login(UserName!, Password!))
 			{
 				// במקרה של הצלחה
 				LoginMessage = AppMessages.LoginMessage;
 				MessageColor = Colors.Green;
 				////////////////
-				CurrentUser = db.getUserByUsername(UserName!); // טוען את המשתמש מהמסד נתונים
+				CurrentUser = await db.getUserByUsername(UserName!); // טוען את המשתמש מהמסד נתונים
 
                 var shellVm = provider.GetService<AppShellViewModel>()!;                                                                    // כאן ניתן להוסיף ניווט לדף הבא
                 Application.Current.Windows[0].Page = new AppShell(shellVm, CurrentUser!);

@@ -31,7 +31,7 @@ namespace MauiSummer25.Service
 		/// <param name="username">שם המשתמש לבדיקה.</param>
 		/// <param name="password">הסיסמה לבדיקה.</param>
 		/// <returns>אמת (true) אם נמצא משתמש עם פרטים תואמים, אחרת שקר (false).</returns>
-		public bool Login(string username, string password)
+		public async Task< bool> Login(string username, string password)
 		{
 			// חיפוש המשתמש הראשון ברשימה שתואם לשם המשתמש והסיסמה שהתקבלו
 			var user = users.FirstOrDefault(u => u.Username == username && u.Password == password);
@@ -39,19 +39,19 @@ namespace MauiSummer25.Service
 			return user != null;
 		}
 
-        public bool Register(string name, string username, string password, string email, string phoneNum, DateTime date)
+        public async Task< bool> Register(string name, string username, string password, string email, string phoneNum, DateTime date)
         {
             try
             {
 					var newUser = new User
 					{
 
-						Name = name,
+						FirstName = name,
 						Username = username,
 						Password = password,
 						Email = email,
 						PhoneNum = phoneNum,
-						BirthDate = date
+						BirthDate = date.ToString()
 					};
 					// בדיקה אם המשתמש כבר קיים
 					if (users.Any(u => u.Username == username))
@@ -72,7 +72,7 @@ namespace MauiSummer25.Service
             }
         }
 
-        bool IUserServices.deleteUserByUsername(string username)
+        async Task< bool> IUserServices.deleteUserByUsername(string username)
         {
             User user = users.FirstOrDefault(u => u.Username == username);
             if (user == null)
@@ -91,7 +91,7 @@ namespace MauiSummer25.Service
 		/// </summary>
 		/// <param name="username"></param>
 		/// <returns></returns>
-        User? IUserServices.getUserByUsername(string username)
+       async Task< User?> IUserServices.getUserByUsername(string username)
         {
             User? user = users.FirstOrDefault(u => u.Username == username);
 			return user; // מחזיר את המשתמש אם נמצא, אחרת מחזיר null

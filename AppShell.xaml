@@ -21,7 +21,7 @@
         Route="MainPage" /
     -->
 
-    <Shell.TitleView>
+    <!--Shell.TitleView>
         <HorizontalStackLayout>
             <Button
                 Margin="5"
@@ -40,7 +40,7 @@
                 Text="הפרופיל שלי"
                 WidthRequest="120" />
         </HorizontalStackLayout>
-    </Shell.TitleView>
+    </Shell.TitleView-->
 
     <Tab Title="משתמש חדש" Icon="add.png">
         <ShellContent
@@ -56,5 +56,19 @@
             ContentTemplate="{DataTemplate local:UserList}"
             Icon="view.png"
             Route="UserList" />
+    </Tab>
+    <Tab Title="הפרופיל שלי" Icon="profile.png">
+        <ShellContent
+            Title="הפרופיל שלי"
+            ContentTemplate="{DataTemplate local:UserProfilePage}"
+            Icon="view.png"
+            Route="UserProfilePage" />
+    </Tab>
+    <Tab Title="קורסים" Icon="profile.png">
+        <ShellContent
+            Title="הקורסים שלי"
+            ContentTemplate="{DataTemplate local:CoursesPage}"
+            Icon="view.png"
+            Route="CoursesPage" />
     </Tab>
 </Shell>

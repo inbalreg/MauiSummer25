@@ -30,10 +30,10 @@ namespace MauiSummer25.Models
 
         public string? Name
         {
-            get => user.Name;
+            get => user.FirstName;
             set
             {
-                user.Name = value;
+                user.FirstName = value;
                 OnPropertyChanged();
 
             }
@@ -80,7 +80,7 @@ namespace MauiSummer25.Models
             }
         }
 
-        public DateTime BirthDate
+        public string BirthDate
         {
             get => user.BirthDate;
             set

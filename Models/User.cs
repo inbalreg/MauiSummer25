@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace MauiSummer25.Models;
 
+[Table("Users")]
 /// <summary>
 /// מייצג את מודל הנתונים של משתמש באפליקציה.
 /// </summary>
@@ -16,16 +18,16 @@ public class User
 	/// </summary>
 	/// <remarks>This member is private and is not directly accessible outside the class.  Use the appropriate public
 	/// properties or methods to interact with this value.</remarks>
-    private string name;
+    private string firstName;
 
-    public string? Name
+    public string? FirstName
     {
-        get { return name; }
+        get { return firstName; }
         set { 
 			
 			if(value == null)
 				throw new ArgumentNullException(nameof(value), "Name cannot be null.");
-            name = value; 
+            firstName = value; 
 		
 		}
     }
@@ -84,9 +86,9 @@ public class User
 		}
     }
 
-	private DateTime birthDate;
+	private string birthDate; //DateTime?
 
-	public DateTime BirthDate
+    public string BirthDate
     {
 		get { return birthDate; }
 		set { birthDate = value; }
@@ -102,13 +104,13 @@ public class User
 
 	public User(string name, string username,string password, string emailStr, string phoneNum, DateTime birthDate, string profilePicture)
     {
-        Name = name;
+        FirstName = name;
         Username = username;
         Password = password;
         Email = emailStr;
         PhoneNum = phoneNum;
 		//if(birthDate != null)
-		BirthDate = (DateTime)birthDate;
+		BirthDate = birthDate.ToString();
 		ProfilePicture = profilePicture;
     }
 
@@ -117,8 +119,8 @@ public class User
 	public User()
 	{
 		this.Username = "a";
-		this.Name = "a";
-		this.BirthDate = new DateTime(2000, 1, 1);
+		this.FirstName = "a";
+		this.BirthDate = new DateTime(2000, 1, 1).ToString();
 		this.Email = "A1";
 		this.Password = "a";
 		this.PhoneNum = "a";
@@ -128,7 +130,7 @@ public class User
 	public User(User user)
 	{
 		this.Username = user.Username;
-		this.Name = user.Name;
+		this.FirstName = user.FirstName;
 		this.BirthDate = user.BirthDate;
 		this.Email = user.Email;
 		this.Password = user.Password;

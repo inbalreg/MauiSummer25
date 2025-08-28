@@ -40,12 +40,12 @@ namespace MauiSummer25.ViewModels
         }
         public string Name
         {
-            get => CurrentUser.Name;
+            get => CurrentUser.FirstName;
             set
             {
-                if (CurrentUser.Name != value)
+                if (CurrentUser.FirstName != value)
                 {
-                    CurrentUser.Name = value;
+                    CurrentUser.FirstName = value;
                     OnPropertyChanged();
                 }
             }
@@ -106,12 +106,12 @@ namespace MauiSummer25.ViewModels
 
         public DateTime BirthDate
         {
-            get => CurrentUser.BirthDate;
+            get => DateTime.Parse(CurrentUser.BirthDate);
             set
             {
-                if (CurrentUser.BirthDate != value)
+                if (CurrentUser.BirthDate != value.ToString())
                 {
-                    CurrentUser.BirthDate = value;
+                    CurrentUser.BirthDate = value.ToString();
                     OnPropertyChanged();
                 }
             }
@@ -398,10 +398,10 @@ namespace MauiSummer25.ViewModels
             CurrentUser = user;
             Username = user.Username;
             Password = user.Password;
-            Name = user.Name;
+            Name = user.FirstName;
             Email = user.Email;
             PhoneNum = user.PhoneNum;
-            BirthDate = user.BirthDate;
+            BirthDate = DateTime.Parse(user.BirthDate);
             ProfilePicture = user.ProfilePicture;
         }
         public Models.User ToUser()
@@ -410,10 +410,10 @@ namespace MauiSummer25.ViewModels
             {
                 Username = Username,
                 Password = Password,
-                Name = Name,
+                FirstName = Name,
                 Email = Email,
                 PhoneNum = PhoneNum,
-                BirthDate = BirthDate,
+                BirthDate = BirthDate.ToString(),
                 ProfilePicture = ProfilePicture
             };
         }
@@ -422,10 +422,10 @@ namespace MauiSummer25.ViewModels
             if (user == null) throw new ArgumentNullException(nameof(user));
             Username = user.Username;
             Password = user.Password;
-            Name = user.Name;
+            Name = user.FirstName;
             Email = user.Email;
             PhoneNum = user.PhoneNum;
-            BirthDate = user.BirthDate;
+            BirthDate = DateTime.Parse(user.BirthDate);
             ProfilePicture = user.ProfilePicture;
         }
 

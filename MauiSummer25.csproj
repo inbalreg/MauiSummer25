@@ -50,6 +50,22 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Views\CoursesListPage.xaml.cs" />
+	  <Compile Remove="Views\NewPage1.xaml.cs" />
+	  <Compile Remove="Views\UsersList.xaml.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiAsset Remove="Resources\Raw\Ex4.db" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Remove="Views\CoursesListPage.xaml" />
+	  <MauiXaml Remove="Views\NewPage1.xaml" />
+	  <MauiXaml Remove="Views\UsersList.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui.Camera" Version="3.0.2" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="9.0.90" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.5" />
@@ -70,6 +86,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Resources\Styles\Styles.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\CoursesPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

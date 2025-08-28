@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MauiSummer25.Views.CoursesPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:MauiSummer25.Models"
+    xmlns:viewmodels="clr-namespace:MauiSummer25.ViewModels"
+    Title="Course List"
+    x:DataType="viewmodels:CoursesPageViewModel">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Command="{Binding DeleteCourseCommand}"
+            CommandParameter="{Binding SelectedCourse}"
+            IconImageSource="delete.png"
+            Text="מחק קורס" />
+    </ContentPage.ToolbarItems>
+
+    <Grid Margin="15" RowDefinitions=".1*,.9*,auto">
+
+        <RefreshView
+            Grid.Row="1"
+            Command="{Binding LoadDataCommand}"
+            IsRefreshing="{Binding IsBusy}">
+            <CollectionView
+                x:Name="courseCollection"
+                ItemsSource="{Binding AllCourses}"
+                SelectedItem="{Binding SelectedCourse, Mode=TwoWay}"
+                SelectionMode="Single">
+
+                <CollectionView.EmptyView>
+                    <StackLayout
+                        Padding="20"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                        <Label
+                            HorizontalTextAlignment="Center"
+                            Text="לא נמצאו קורסים."
+                            TextColor="Gray" />
+                        <Label
+                            HorizontalTextAlignment="Center"
+                            Text="גרור כלפי מטה לרענון."
+                            TextColor="Gray" />
+                    </StackLayout>
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:ObservableCourse">
+                        <Border
+                            Margin="10,5"
+                            Padding="10"
+                            BackgroundColor="White"
+                            Stroke="LightGray"
+                            StrokeShape="RoundRectangle 10">
+
+                            <Grid
+                                ColumnDefinitions="*,Auto,Auto"
+                                ColumnSpacing="10"
+                                RowDefinitions="Auto">
+
+                                <Label
+                                    Grid.Column="0"
+                                    FontAttributes="Bold"
+                                    FontSize="16"
+                                    Text="{Binding CourseName}" />
+
+                                <Label
+                                    Grid.Column="1"
+                                    FontSize="14"
+                                    Text="{Binding HoursNum, StringFormat='שעות: {0}'}"
+                                    TextColor="Gray" />
+
+                                <Button
+                                    Grid.Column="2"
+                                    BackgroundColor="Transparent"
+                                    Command="{Binding BindingContext.DeleteCourseCommand, Source={x:Reference courseCollection}}"
+                                    CommandParameter="{Binding .}"
+                                    Text="מחק"
+                                    TextColor="Red" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+</ContentPage>

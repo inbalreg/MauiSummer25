@@ -36,6 +36,7 @@ namespace MauiSummer25.ViewModels
         private string? _email;
         private string? _phoneNum;
         private DateTime _date;
+        private string _profileImage;
 
 
         /// <summary>
@@ -117,15 +118,31 @@ namespace MauiSummer25.ViewModels
                     Age = null;
                     AgeStr = "----";
                 }
+            }
+        }
+        // <summary>
+        /// הסיסמה המוזנת על ידי המשתמש ב-UI.
+        /// </summary>
+        public string? ProfileImage
+        {
+            get => _profileImage;
+            set
+            {
+                if (_profileImage != value)
+                {
+                    _profileImage = value;
+                    OnPropertyChanged(); // מודיע ל-UI על שינוי
+                    (RegisterCommand as Command)?.ChangeCanExecute(); // בודק מחדש אם ניתן להפעיל את כפתור ההתחברות
                 }
             }
+        }
 
-    //public event PropertyChangedEventHandler PropertyChanged;
+        //public event PropertyChangedEventHandler PropertyChanged;
 
-    //    protected void OnPropertyChanged([CallerMemberName] string name = null)
-    //    {
-    //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-    //    }
+        //    protected void OnPropertyChanged([CallerMemberName] string name = null)
+        //    {
+        //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        //    }
 
         private string? ageStr;
         public string? AgeStr
@@ -332,7 +349,7 @@ namespace MauiSummer25.ViewModels
         /// <summary>
         /// מבצע את לוגיקת ההתחברות.
         /// </summary>
-        private void Register()
+        private async void Register()
         {
             IsBusy = true; // מסמן שהאפליקציה בתהליך (להצגת מחוון טעינה)
             MessageIsVisible = true; // מציג את אזור הודעת המשוב
@@ -351,13 +368,15 @@ namespace MauiSummer25.ViewModels
                     throw new ArgumentException("Age cannot be under 18");
                 }
                 // קורא לשירות ההתחברות עם הפרטים שהוזנו
-                if (db.Register(Name!, UserNameText!, Password!, Email!, PhoneNum!, (DateTime)SelectedDate))
+                bool ans = await db.Register(Name!, UserNameText!, Password!, Email!, PhoneNum!, (DateTime)SelectedDate);
+                if (ans)
                 {
                     // במקרה של הצלחה
                     MessageIsVisible = true;
                     UserMessage = AppMessages.RegisteredMessage;
-                    MessageColor = Colors.Green;
+                    MessageColor = Colors.GreenYellow;
                     // כאן ניתן להוסיף ניווט לדף הבא
+
                 }
                 else
                 {

@@ -32,12 +32,12 @@ public class AddUserPageViewModel : ContentView
     }
 	public string Name
 	{
-		get => currentUser.Name;
+		get => currentUser.FirstName;
 		set
 		{
-			if (currentUser.Name != value)
+			if (currentUser.FirstName != value)
 			{
-				currentUser.Name = value;
+				currentUser.FirstName = value;
 				OnPropertyChanged();
 			}
 		}
@@ -98,12 +98,12 @@ public class AddUserPageViewModel : ContentView
 
     public DateTime BirthDate
     {
-        get => currentUser.BirthDate;
+        get => DateTime.Parse( currentUser.BirthDate);
         set
         {
-            if (currentUser.BirthDate != value)
+            if (DateTime.Parse(currentUser.BirthDate) != value)
             {
-                currentUser.BirthDate = value;
+                currentUser.BirthDate = value.ToString();
                 OnPropertyChanged();
             }
         }
